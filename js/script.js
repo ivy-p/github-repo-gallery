@@ -1,11 +1,12 @@
 // This div is where my profile info will appear
 const overviewEl = document.querySelector(".overview");
 const username = "ivy-p";
+repoListEl = document.querySelector(".repo-list");
 
 const profileFetch = async function () {
-    const res = await fetch (`https://api.github.com/users/${username}`);
+    const userInfo = await fetch (`https://api.github.com/users/${username}`);
 
-    const data = await res.json();
+    const data = await userInfo.json();
     console.log(data);
 
     profileDisplay(data);
@@ -14,10 +15,10 @@ const profileFetch = async function () {
 profileFetch();
 
 function profileDisplay (data) {
-    const userInfoEl = document.createElement("div");
-    userInfoEl.classList.add(".user-info")
+    const userInfoDiv = document.createElement("div");
+    userInfoDiv.classList.add(".user-info")
 
-    userInfoEl.innerHTML = `
+    userInfoDiv.innerHTML = `
     <figure>
     <img alt="user avatar" src=${data.avatar_url} />
   </figure>
@@ -28,6 +29,27 @@ function profileDisplay (data) {
     <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
     `;
 
-    overviewEl.append(userInfoEl);
-}
-// In your next await statement, resolve the JSON response. Log out the response to the console and call your function to see your results. 
+    overviewEl.append(userInfoDiv);
+
+    repoFetch();
+};
+
+
+const repoFetch = async function () {
+    const res = await fetch (`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+
+    const repos = await res.json();
+    console.log(repos);
+
+    repoInfoDisplay(repos);
+}; 
+
+function repoInfoDisplay (repos) {
+ for (const repo of repos) {
+    const repoLi = document.createElement("li");
+    repoLi.classList.add("repo");
+    repoLi.innerHTML = `<h3>${repo.name}</h3>`
+
+    repoListEl.append(repoLi);
+ };
+};
