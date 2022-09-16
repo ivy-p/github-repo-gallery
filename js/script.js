@@ -1,13 +1,16 @@
+const username = "ivy-p";
 // This div is where my profile info will appear
 const overviewEl = document.querySelector(".overview");
-const username = "ivy-p";
 // List Element
 repoListEl = document.querySelector(".repo-list");
-
 // Section where all repo information appears
 const repoSectionEl = document.querySelector(".repos");
 // Section where individual repo data will appear
 const repoDataEl = document.querySelector(".repo-data");
+//Back to Repo Gallery Button
+const backButton = document.querySelector(".view-repos");
+// Input element with "search by name" placeholder
+const filterInput = document.querySelector(".filter-repos");
 
 // Fetching profile information from GitHub
 const profileFetch = async function () {
@@ -57,6 +60,8 @@ const repoFetch = async function () {
 
 // Displaying Repo names on page.
 function repoNameDisplay (repos) {
+filterInput.classList.remove("hide");
+
  for (const repo of repos) {
     const repoLi = document.createElement("li");
     repoLi.classList.add("repo");
@@ -66,6 +71,7 @@ function repoNameDisplay (repos) {
  };
 };
 
+// Adding Click listener for repo names
 repoListEl.addEventListener("click", function (e) {
     // If the element that was clicked on matches the h3 element (aka name of repo)
     if (e.target.matches("h3")) {
@@ -109,5 +115,31 @@ function repoInfoDisplay(repoInfo, languages) {
     repoDataEl.classList.remove("hide");
 
     repoSectionEl.classList.add("hide");
+
+    backButton.classList.remove("hide");
 };
+
+// Adding click listener for back button
+backButton.addEventListener("click", function () {
+    repoSectionEl.classList.remove("hide");
+    repoDataEl.classList.add("hide");
+    backButton.classList.add("hide");
+});
+
+// Search input
+filterInput.addEventListener("input", function (e) {
+    const searchValue = e.target.value;
+    const reposClass = document.querySelectorAll(".repo");
+    const searchLowerText = searchValue.toLowerCase();
+
+    for (const repo of reposClass) {
+        const repoLowerText = repo.innerText.toLowerCase();
+
+        if (repoLowerText.includes(searchLowerText)) {
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        }
+    }
+});
 
