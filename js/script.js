@@ -28,7 +28,7 @@ profileFetch();
 //Displaying specified GitHub Profile information 
 function profileDisplay (data) {
     const userInfoDiv = document.createElement("div");
-    userInfoDiv.classList.add(".user-info")
+    userInfoDiv.classList.add("user-info");
 
     userInfoDiv.innerHTML = `
     <figure>

@@ -33,7 +33,6 @@ body {
 img {
     max-width: 100%;
     height: auto;
-    border-radius: 50%;
 }
 
 h1 {
@@ -107,8 +106,6 @@ ul {
 .user-info {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    flex-direction: column;
     justify-content: center;
     background-color: #483978;
     color: white;
@@ -122,7 +119,7 @@ ul {
 }
 
 .user-info img {
-    border-radius: 50%;
+    border-radius: 100%;
 }
 
 .user-info div {
@@ -144,6 +141,7 @@ ul {
 
 .filter-repos {
     width: 300px;
+    height: 50px;
     margin-top: 1em;
     padding: 1em;
     margin-bottom: 1em;
